@@ -31,7 +31,8 @@ data_time = str(data_time).replace(' ','').replace('[u\'','').replace('\']','').
     ('\u5e74','.').replace('\u6708','.').replace('\u65e5','.').replace('\u65f6','')
 data_AQI = lxml.etree.HTML(html).xpath('//*[@id="ContentBody_AqiData"]/text()')[0]
 data_play = str(lxml.etree.HTML(html).xpath('//*[@id="ContentBody_FirstPoll"]/text()'))\
-    .replace('[u\'','').replace('\']','').replace('\u9996\u8981\u6c61\u67d3\u7269\uff1a','')
+    .replace('[u\'','').replace('\']','').replace('\u9996\u8981\u6c61\u67d3\u7269\uff1a','')\
+    .replace('[','').replace(']','')
 data_SO2 = lxml.etree.HTML(html).xpath('//*[@id="ContentBody_SO2IAQI"]/text()')[0]
 data_NO2 = lxml.etree.HTML(html).xpath('//*[@id="ContentBody_NO2IAQI"]/text()')[0]
 data_PM10 = lxml.etree.HTML(html).xpath('//*[@id="ContentBody_PM10IAQI"]/text()')[0]
@@ -52,7 +53,7 @@ col = sheet.col_values(0)                       # 获取第一列
 newdayDatabookopen = xlutils.copy.copy(dayDatabookopen)
 newsheet = newdayDatabookopen.get_sheet(0)
 
-#   使用xlrd 与 xlutils.copy 对数据进行追加操作,操作 /环检测数据.xlsx 表
+#   使用xlrd 与 xlutils.copy 对数据进行追加操作,操作 /AQI2.xlsx 表
 AQIdayDatabook = xlrd.open_workbook(r'D:/CGI/python/note/AQIspyder/AQI2.xlsx')
 AQIsheet = AQIdayDatabook.sheet_by_index(0)
 col2 = AQIsheet.col_values(0)                       # 获取第一列
